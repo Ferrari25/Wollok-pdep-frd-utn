@@ -1,0 +1,33 @@
+VACA
+cuando comer, aumenta el peso en lo que comio /3 y le da sed
+cuando bebe se le va la sed y pierde 0.5 km de peso 
+tiene hambre si pesa 20kg o menos 
+
+
+
+
+
+GALLINA
+cuando come y no bebe no hay cambio, siempre pesa 4kg
+siempre tiene hambre , nunca tiene sed 
+
+
+
+
+
+CERDO
+cuando come, aumenta el peso en lo que comio -0.2kg (si come menos de 0.2kg no aumenta de peso) sole se le va el hambre
+tiene sed si comio mas de 3 veces si beber entre comida
+cuando bebe le da hambre
+
+
+POSIBLES PUNTOS DE ENTRADA 
+saber si un dispositivo es utila para atender a un animal
+
+dispositivo.esUtilParaAtender(animal)
+animal.esUtilParaAtenderse(dispositivo)
+
+Elegir buenos nombre 
+identificar que sabe cada objeto 
+evitar decidir antes de tiempo
+
