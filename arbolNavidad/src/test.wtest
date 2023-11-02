@@ -1,0 +1,19 @@
+import example.*
+
+describe "regalos test" {
+    const a = new Arbol(vejez=30, tamanoTronco=2)
+    const t = new Tarjeta(destinatario = "juan", importancia=3)
+    const r = new Regalo()
+
+    test "test1" {
+        r.agregarDestinatario("michael")
+        r.agregarDestinatario("juan")
+
+        a.agregarElemento(t)
+        a.agregarElemento(r)
+
+        var d = a.destinatarios()
+        
+        assert.equals(["juan", "michael"], d)
+    }
+}

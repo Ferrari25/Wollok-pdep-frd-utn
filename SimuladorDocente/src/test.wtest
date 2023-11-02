@@ -1,0 +1,51 @@
+import example.*
+
+
+const alumno1 = new Alumno(nivelDeAtencion=60,estadoDeAnimo=masomenos,motivado=false)
+const alumno2 = new Alumno(nivelDeAtencion=10,estadoDeAnimo=meQuieroIr,motivado=false)
+const alumno3 = new Alumno(nivelDeAtencion=20,estadoDeAnimo=todoBien,motivado=false)
+const alumno4 = new Alumno(nivelDeAtencion=40,estadoDeAnimo=ganasDeSerAyudante,motivado=true)
+
+const temaS1 = new TemaSimple(estadosDeAnimoNecesarios=[meQuieroIr, ganasDeSerAyudante])
+const temaS2 = new TemaSimple(estadosDeAnimoNecesarios=[masomenos, todoBien])
+const temaC1 = new TemaComplejo(interes=30)
+const temaC2 = new TemaComplejo(interes=90)
+
+const docente = new Docente(alumnos=[alumno1, alumno2, alumno3, alumno4], temas=[temaS1, temaS2, temaC1, temaC2])
+
+test "analogia" {
+    docente.analogia()
+    assert.that(alumno1.nivelDeAtencion() == 70 && alumno1.motivado() )
+    assert.that(alumno3.estadoDeAnimo() == masomenos)
+    assert.that(alumno2.estadoDeAnimo() == meQuieroIr)
+}
+
+test "receso" {
+    docente.receso(45)
+    assert.that(alumno1.nivelDeAtencion() == 100 && alumno1.estadoDeAnimo() == todoBien )
+    assert.that(alumno2.estadoDeAnimo() == meQuieroIr && alumno2.nivelDeAtencion() == 20)
+}
+
+test "payasadas" {
+    docente.payasada()
+    assert.that(alumno4.nivelDeAtencion() == 80 && alumno4.estadoDeAnimo() == meQuieroIr && !alumno4.motivado())
+    assert.that(alumno3.nivelDeAtencion() == 40 && alumno3.estadoDeAnimo() == ganasDeSerAyudante && alumno3.motivado())
+}
+
+test "temaSimple" {
+    docente.explicarTema(temaS1)
+    assert.notThat(alumno1.aprendioTema(temaS1))
+    assert.notThat(alumno2.aprendioTema(temaS1))
+    assert.notThat(alumno3.aprendioTema(temaS1))
+    assert.notThat(alumno4.aprendioTema(temaS1))
+}
+
+test "temaComplejo" {
+    docente.explicarTema(temaC1)
+    assert.notThat(alumno1.aprendioTema(temaC1))
+    assert.notThat(alumno2.aprendioTema(temaC1))
+    assert.notThat(alumno3.aprendioTema(temaC1))
+    assert.that(alumno4.aprendioTema(temaC1))
+    assert.that(alumno4.estadoDeAnimo() == ganasDeSerAyudante && alumno4.nivelDeAtencion() == 55 && alumno4.motivado())
+}
+

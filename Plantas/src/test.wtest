@@ -1,0 +1,61 @@
+import semillas.*
+import parcelas.*
+
+test "menta de un metro" {
+    const menta = new Menta(anio_obtencion=2020, altura=1)
+    assert.that(menta.daSemillas())
+    assert.equals(menta.espacioQueOcupa(), 3)
+}
+
+test "menta de 0.3 metros" {
+    const menta = new Menta(anio_obtencion=2020, altura=0.3)
+    assert.notThat(menta.daSemillas())
+    assert.equals(menta.espacioQueOcupa(), 0.9)
+}
+
+test "soja de 0.6 metros y anio 2009 tolera sol, no da semillas y ocupa 0.3 m^2" {
+    const soja = new Soja(anio_obtencion=2009, altura=0.6)
+    assert.equals(soja.cuantoSolTolera(), 7)
+    assert.equals(soja.espacioQueOcupa(), 0.3)
+    assert.that(soja.daSemillas())
+}
+
+test "quinoa de 12 horas de sol, semilla de 2010 da semillas" {
+    const quinoa = new Quinoa(anio_obtencion=2010, altura=0.6, cuantoSolTolera=12)
+    assert.that(quinoa.daSemillas())
+}
+
+test "quinoa de 9 horas de sol, semilla de 2001 da semillas" {
+    const quinoa = new Quinoa(anio_obtencion=2001, altura=0.6, cuantoSolTolera=9)
+    assert.notThat(quinoa.daSemillas())
+}
+
+test "parcela de 20x1 recibe 8hs de sol" {
+    const p = new Parcela(ancho=20, largo=1, hsDeSol=8)
+    const soja = new Soja(anio_obtencion=2023, altura=2)
+    assert.equals(p.superficie(), 20)
+    assert.equals(p.cantMaximaPlantas(), 4)
+    p.plantar(soja)
+    p.plantar(soja)
+    p.plantar(soja)
+    p.plantar(soja)
+    assert.throwsException({p.plantar(soja)})
+}
+
+test "parcelas ideales" {
+    const pMenta = new Parcela(ancho=20, largo=1, hsDeSol=8)
+    const menta = new Menta(anio_obtencion=2020, altura=0.3)
+    const pQuinoa = new Parcela(ancho=20, largo=30, hsDeSol=1)
+    const quinoa = new Quinoa(anio_obtencion=2010, altura=0.6, cuantoSolTolera=12)
+    pQuinoa.plantar(menta)
+    pQuinoa.plantar(quinoa)
+    const pSoja = new Parcela(ancho=20, largo=1, hsDeSol=7)
+    const soja = new Soja(anio_obtencion=2023, altura=1)
+    const pSojaT = new Parcela(ancho=5, largo=1, hsDeSol=8)
+    const sojaT = new SojaTransgenica(anio_obtencion=2023, altura=2)
+
+    assert.that(menta.esIdeal(pMenta))
+    assert.that(quinoa.esIdeal(pQuinoa))
+    assert.that(soja.esIdeal(pSoja))
+    assert.that(sojaT.esIdeal(pSojaT))
+}
