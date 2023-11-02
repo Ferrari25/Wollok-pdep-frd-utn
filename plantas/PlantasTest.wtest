@@ -1,0 +1,33 @@
+import plantas.*
+
+/*describe "plantas"
+{
+	const menta = new Menta(anio=0 , altura=0.5)
+	const menta1 = new Menta(anio=0 , altura=0.3)
+	
+	const soja = new Soja(anio=2009 , altura=0.5)
+	
+	const quinoa = new Quinoa(anio = 2004 , altura=0.5 , nuevasHsSol = 12)
+	const quinoa1 = new Quinoa(anio = 2001 , altura=0.5 , nuevasHsSol = 9)
+	
+	
+}
+*/
+
+test "mentas"
+{
+	assert.that(new Menta(anio=0 , altura=0.5).daSemillas())
+	assert.notThat(new Menta(anio=0 , altura=0.3).daSemillas())
+}
+
+test "sojas"
+{
+	assert.notThat(new Soja(anio=2009 , altura=0.5).daSemillas())
+	assert.that(new Soja(anio=2009 , altura=1.1).daSemillas())
+}
+
+test "quinoa"
+{
+	assert.notThat(new Quinoa(anio = 2010 , altura=0.5 , nuevasHsSol = 9).daSemillas())
+	assert.that(new Quinoa(anio = 2001 , altura=0.5 , nuevasHsSol = 11).daSemillas())
+}
